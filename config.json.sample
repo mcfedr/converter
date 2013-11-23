@@ -1,0 +1,6 @@
+{
+    "inDir": "/Users/mcfedr/TV Temp",
+    "outDir": "/Users/mcfedr/TV",
+    "port": 22755,
+    "ffmpeg": "/Users/mcfedr/dev/cast/ffmpeg"
+}

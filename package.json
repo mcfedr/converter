@@ -1,0 +1,32 @@
+{
+  "name": "converter",
+  "version": "1.0.0",
+  "description": "A converter script for videos, useful as a transmission download script",
+  "bin": "./converter.js",
+  "dependencies": {
+    "async": "~0.2.9",
+    "fluent-ffmpeg": "~1.5.2",
+    "touch": "0.0.2",
+    "mmmagic": "~0.3.4",
+    "fswalk": "~1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mcfedr/converter.git"
+  },
+  "keywords": [
+    "convert",
+    "video",
+    "transmission"
+  ],
+  "author": "Fred Cox",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mcfedr/converter/issues"
+  },
+  "homepage": "https://github.com/mcfedr/converter"
+}
