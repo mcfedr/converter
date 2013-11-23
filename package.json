@@ -23,7 +23,7 @@
     "video",
     "transmission"
   ],
-  "author": "Fred Cox",
+  "author": "Fred Cox <mcfedr@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mcfedr/converter/issues"
