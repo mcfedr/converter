@@ -18,7 +18,7 @@ function startServer() {
             startClient();
         }),
         convert;
-
+    server.unref();
     server.on('error', function() {
         startClient();
     });

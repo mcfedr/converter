@@ -26,7 +26,7 @@ exports.queue = require('async').queue(function(task, cb) {
 
 exports.convert = function(convertDir) {
     console.log('Converting', convertDir);
-    if(convertDir.indexOf(config.inDir) == 0) {
+    if(convertDir.indexOf(config.inDir) == 0) {//Only convert files in the inDir
         walk(convertDir, function(file, stats) {
             if(/sample/i.test(file)) {//Skip files with sample in the name
                 console.log('Sample', file);
@@ -44,21 +44,43 @@ exports.convert = function(convertDir) {
                                 }
                                 else {
                                     touch(output);//Make the file exist, to stop other processes queueing the same file
-                                    exports.queue.push({
-                                        output: output,
-                                        input: file,
-                                        ff: new ffmpeg({
-                                            source: file,
-                                            nolog: true,
-                                            timeout: 0
-                                        })
-                                            .addOptions(['-map 0:0', '-map 0:1'])
-                                            .withVideoBitrate('1024k')
-                                            .withVideoCodec('libx264')
-                                            .withAudioBitrate('128k')
-                                            .withAudioCodec('libvo_aacenc')
-                                            .withAudioChannels(2)
-                                            .toFormat('mp4')
+                                    ffmpeg.Metadata(file, function(metadata, err) {
+                                        if(metadata.video.codec == 'h264' && (metadata.audio.codec == 'ac3' || metadata.audio.codec == 'mp3')) {
+                                            console.log('Can copy streams', file);
+                                            exports.queue.push({
+                                                output: output,
+                                                input: file,
+                                                ff: new ffmpeg({
+                                                        source: file,
+                                                        nolog: true,
+                                                        timeout: 0
+                                                    })
+                                                    .addOptions(['-map 0:0', '-map 0:1'])
+                                                    .withVideoCodec('copy')
+                                                    .withAudioCodec('copy')
+                                                    .toFormat('mp4')
+                                            });
+                                        }
+                                        else {
+                                            exports.queue.push({
+                                                output: output,
+                                                input: file,
+                                                ff: new ffmpeg({
+                                                        source: file,
+                                                        nolog: true,
+                                                        timeout: 0
+                                                    })
+                                                    .addOptions(['-map 0:0', '-map 0:1'])
+                                                    .addOption('-crf', '20')
+                                                    .addOption('-preset', 'faster')
+                                                    .withVideoCodec('libx264')
+                                                    .withAudioBitrate('128k')
+                                                    .withAudioCodec('libvo_aacenc')
+                                                    .withAudioChannels(2)
+                                                    .addOption('-af', 'volume=1.5')
+                                                    .toFormat('mp4')
+                                            });
+                                        }
                                     });
                                 }
                             });
