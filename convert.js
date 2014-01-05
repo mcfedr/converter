@@ -45,7 +45,7 @@ exports.convert = function(convertDir) {
                                 else {
                                     touch(output);//Make the file exist, to stop other processes queueing the same file
                                     ffmpeg.Metadata(file, function(metadata, err) {
-                                        if(metadata.video.codec == 'h264' && (metadata.audio.codec == 'ac3' || metadata.audio.codec == 'mp3')) {
+                                        if(metadata.video.codec == 'h264' && (metadata.audio.codec == 'ac3' || metadata.audio.codec == 'mp3' || metadata.audio.codec == 'aac')) {
                                             console.log('Can copy streams', file);
                                             exports.queue.push({
                                                 output: output,
@@ -55,7 +55,7 @@ exports.convert = function(convertDir) {
                                                         nolog: true,
                                                         timeout: 0
                                                     })
-                                                    .addOptions(['-map 0:0', '-map 0:1'])
+                                                    .addOptions(['-map 0:v:0', '-map 0:a:0'])
                                                     .withVideoCodec('copy')
                                                     .withAudioCodec('copy')
                                                     .toFormat('mp4')
@@ -70,7 +70,7 @@ exports.convert = function(convertDir) {
                                                         nolog: true,
                                                         timeout: 0
                                                     })
-                                                    .addOptions(['-map 0:0', '-map 0:1'])
+                                                    .addOptions(['-map 0:v:0', '-map 0:a:0'])
                                                     .addOption('-crf', '20')
                                                     .addOption('-preset', 'faster')
                                                     .withVideoCodec('libx264')
