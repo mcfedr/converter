@@ -4,6 +4,6 @@ var config = require('./config');
 process.env.FFMPEG_PATH = config.ffmpeg;
 ffmpeg = require('fluent-ffmpeg');
 
-ffmpeg.Metadata('/Users/mcfedr/Desktop/movie.mkv', function(metadata, err) {
+ffmpeg.Metadata(process.argv[2], function(metadata, err) {
     console.log(require('util').inspect(metadata, false, null));
 });
