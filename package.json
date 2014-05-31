@@ -5,11 +5,11 @@
   "bin": "./converter.js",
   "dependencies": {
     "async": "~0.2.9",
-    "fluent-ffmpeg": "~1.5.2",
+    "fluent-ffmpeg": "~1.7",
     "touch": "0.0.2",
     "mmmagic": "~0.3.4",
     "fswalk": "~1.0.0",
-    "subtitles-parser": "git+https://github.com/mcfedr/subtitles-parser.git#0.0.3"
+    "subtitles-parser": "mcfedr/subtitles-parser#0.0.3"
   },
   "devDependencies": {},
   "scripts": {

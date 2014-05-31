@@ -1,6 +1,6 @@
 #!/usr/local/bin/node
 var config = require('./config'),
-    torrentDir = process.argv[2] || process.env.TR_TORRENT_DIR || config.inDir,
+    inDir = process.argv[2] || process.env.TR_TORRENT_DIR || config.inDir,
     net = require('net');
 
 function startServer() {
@@ -27,9 +27,9 @@ function startServer() {
 function startClient() {
     var client;
     client = net.connect(config.port, function() {
-        console.log('Sending', torrentDir);
+        console.log('Sending', inDir);
         client.setEncoding('utf8');
-        client.end(torrentDir);
+        client.end(inDir);
     });
 }
 
