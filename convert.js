@@ -159,7 +159,7 @@ function convert(convertDir) {
                             cb(null, subtitles.toWebVTT(subtitles.fromSrt(results.read)));
                         }],
                         write: ['convert', function (cb, results) {
-                            fs.writeFile(outputName(file, 'webvtt'), results.convert, 'utf8', cb);
+                            fs.writeFile(outputName(file, 'vtt'), results.convert, 'utf8', cb);
                         }],
                         rm: ['write', function (cb) {
                             if (config.delete) {
