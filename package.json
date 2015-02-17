@@ -21,7 +21,10 @@
   },
   "keywords": [
     "convert",
-    "video"
+    "video",
+    "chromecast",
+    "mp4",
+    "webm"
   ],
   "author": "Fred Cox <mcfedr@gmail.com>",
   "license": "MIT",
