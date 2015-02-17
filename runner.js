@@ -51,9 +51,11 @@ module.exports = function() {
                     .on('end', function () {
                         console.log('Complete', options.output);
                         if (options.delete) {
-                            fs.unlink(options.input);
+                            fs.unlink(options.input, cb);
                         }
-                        cb();
+                        else {
+                            cb();
+                        }
                     })
                     .on('error', function (err) {
                         console.log('Error', options.output, err);

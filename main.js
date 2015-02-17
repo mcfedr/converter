@@ -4,7 +4,8 @@ var commander = require('commander'),
     server = require('./server'),
     handler = require('./handler'),
     mime = require('mime'),
-    config;
+    config,
+    subtitles = require('./subtitles');
 
 try {
     config = require('./config.json');
@@ -31,7 +32,7 @@ if (!(options.input || options.inputDir || process.env.TR_TORRENT_DIR)) {
     process.exit();
 }
 
-server(handler).then(function(send) {
+server(handler, options.port).then(function(send) {
     if (options.input) {
         send(options);
     }
@@ -52,6 +53,10 @@ server(handler).then(function(send) {
             if (!file.match(/sample/) && mime.lookup(file).match(/video\//)) {
                 options.input = file;
                 send(options);
+            }
+            else if (file.match(/\.srt/)) {
+                options.input = file;
+                subtitles(options);
             }
         });
     }
