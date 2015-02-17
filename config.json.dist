@@ -1,10 +1,3 @@
 {
-    "inDir": "/Users/mcfedr/TV Temp",
-    "outDir": "/Users/mcfedr/TV",
-    "port": 22755,
-    "ffmpeg": "/Users/mcfedr/dev/cast/ffmpeg",
-    "webm": true,
-    "mp4": true,
-    "delete": false,
-    "overwrite": true
+  "outputDir": "/Users/mcfedr/TV"
 }
