@@ -4,7 +4,13 @@ var commander = require('commander'),
     server = require('./server'),
     handler = require('./handler'),
     mime = require('mime'),
+    config;
+
+try {
     config = require('./config.json');
+} catch(e) {
+    console.log('No config file found');
+}
 
 var options = commander
     .description('Convert videos using ffmpeg to either mp4 or webm (whichever your ffmpeg supports) ' +
