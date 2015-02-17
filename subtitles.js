@@ -1,4 +1,4 @@
-var parser = require('parser-parser'),
+var parser = require('subtitles-parser'),
     async = require('async'),
     fs = require('fs'),
     Promise = require('promise');
