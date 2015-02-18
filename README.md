@@ -19,3 +19,9 @@ All other videos will be converted to mp4.
 
 Only one video is converted at a time. If you run a second copy of `converter` it will simple add the files to the queue
 of the first.
+
+## ffmpeg
+
+Sometimes you will need to set and environment variable `FFMPEG_PATH` 
+
+    FFMPEG_PATH=/usr/local/bin/ffmpeg /usr/local/bin/cast-converter -i /Users/mcfedr/TV/file.mkv -d >> /Users/mcfedr/.flexget/convert.log &

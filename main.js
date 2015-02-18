@@ -1,17 +1,21 @@
 #!/usr/local/bin/node
+var config;
+try {
+    config = require('./config.json');
+
+    if (config.ffmpeg) {
+        process.env.FFMPEG_PATH = config.ffmpeg;
+    }
+} catch(e) {
+    console.log('No config file found');
+}
+
 var commander = require('commander'),
     fswalk = require('fswalk'),
     server = require('./server'),
     handler = require('./handler'),
     mime = require('mime'),
-    config,
     subtitles = require('./subtitles');
-
-try {
-    config = require('./config.json');
-} catch(e) {
-    console.log('No config file found');
-}
 
 var options = commander
     .description('Convert videos using ffmpeg to either mp4 or webm (whichever your ffmpeg supports) ' +
