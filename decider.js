@@ -72,7 +72,7 @@ module.exports = function(options) {
                 }
                 else {
                     console.log('Video: x264 (from ' + meta.video.codec + ')', options.input);
-                    ff.videoCodec('h264')
+                    ff.videoCodec('libx264')
                         .videoBitrate(2048)
                         .addOption('-crf', '20')
                         .addOption('-preset', 'faster');
