@@ -1,4 +1,5 @@
-var net = require('net'),
+var clone = require('clone'),
+    net = require('net'),
     Promise = require('promise');
 
 module.exports = function(getHandler, port) {
@@ -30,9 +31,9 @@ module.exports = function(getHandler, port) {
             });
         }
 
-        function startClient(options) {
-            var client;
-            client = net.connect(port, function() {
+        function startClient(data) {
+            var options = clone(data),
+                client = net.connect(port, function() {
                 console.log('Sending', options);
                 client.setEncoding('utf8');
                 client.end(JSON.stringify(options));
