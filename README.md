@@ -5,9 +5,16 @@ This script can be a tranmission script, so it will process files in TR_TORRENT_
 
 ## Config
 
-Copy `config.json.dist` to `config.json`.
+Create a config as `~/converter.json`.
 
 This is used when running as a transmission download script.
+
+Sample config file:
+
+    {
+      "outputDir": "/Users/mcfedr/TV",
+      "ffmpeg": "/usr/local/bin/ffmpeg"
+    }
 
 ## Formats
 
