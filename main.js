@@ -1,7 +1,9 @@
 #!/usr/local/bin/node
-var config;
+var config,
+    path = require('path'),
+    os = require('os');
 try {
-    config = require('~/.converter.json');
+    config = require(path.join(os.homedir(), '.converter.json'));
 
     if (config.ffmpeg) {
         process.env.FFMPEG_PATH = config.ffmpeg;
