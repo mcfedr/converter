@@ -7,13 +7,13 @@ var available = new Promise(function(resolve, reject) {
         if (err) {
             return reject(err);
         }
-        var mp4 = (codes.h264 || codecs.libx264) && codecs.aac,
+        var mp4 = (codecs.h264 || codecs.libx264) && codecs.aac,
             webm = codecs.libvpx && codecs.vorbis;
         console.log('Checking format mp4: ' + (mp4 ? 'yes' : 'no'));
         console.log('Checking format webm: ' + (webm ? 'yes' : 'no'));
         resolve({
             mp4: mp4 && {
-                h264: codes.h264,
+                h264: codecs.h264,
                 libx264: codecs.libx264
             },
             webm: webm
