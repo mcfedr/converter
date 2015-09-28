@@ -9,7 +9,7 @@ var available = new Promise(function(resolve, reject) {
         }
         var mp4 = (codecs.h264 || codecs.libx264) && codecs.aac,
             webm = codecs.libvpx && codecs.vorbis;
-        console.log('Checking format mp4: ' + (mp4 ? 'yes' : 'no'));
+        console.log('Checking format mp4: ' + (mp4 ? 'yes' : 'no') + ' (h264: ' + (codecs.h264 ? 'yes' : 'no') + ' libx264: ' + (codecs.libx264 ? 'yes' : 'no') + ')');
         console.log('Checking format webm: ' + (webm ? 'yes' : 'no'));
         resolve({
             mp4: mp4 && {
@@ -75,7 +75,7 @@ module.exports = function(options) {
                 }
                 else {
                     console.log('Video: x264 (from ' + meta.video.codec + ')', options.input);
-                    ff.videoCodec(available.mp4.h264 ? 'h264' : 'libx264')
+                    ff.videoCodec(available.mp4.libx264 ? 'libx264' : 'h264')
                         .videoBitrate(2048)
                         .addOption('-crf', '20')
                         .addOption('-preset', 'faster');
