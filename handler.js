@@ -1,5 +1,6 @@
 var r = require('./runner'),
-    decider = require('./decider');
+    decider = require('./decider'),
+    winston = require('winston');
 
 module.exports = function() {
     var runner = r();
@@ -8,7 +9,7 @@ module.exports = function() {
         decider(options).then(function(options) {
             runner.push(options);
         }, function(err) {
-            console.log(err);
+            winston.info(err);
         });
     };
 };

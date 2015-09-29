@@ -1,6 +1,7 @@
 var clone = require('clone'),
     net = require('net'),
-    Promise = require('promise');
+    Promise = require('promise'),
+    winston = require('winston');
 
 module.exports = function(getHandler, port) {
     return new Promise(function(resolve) {
@@ -11,7 +12,7 @@ module.exports = function(getHandler, port) {
             var server = net.createServer(function(socket) {
                     socket.setEncoding('utf8');
                     socket.on('data', function(data) {
-                        console.log('Received', data);
+                        winston.info('Received', data);
                         handler(JSON.parse(data));
                     });
                 })
@@ -34,7 +35,7 @@ module.exports = function(getHandler, port) {
         function startClient(data) {
             var options = clone(data),
                 client = net.connect(port, function() {
-                console.log('Sending', options);
+                winston.info('Sending', options);
                 client.setEncoding('utf8');
                 client.end(JSON.stringify(options));
             });

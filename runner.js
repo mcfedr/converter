@@ -1,16 +1,17 @@
 var async = require('async'),
-    fs = require('fs-extra');
+    fs = require('fs-extra'),
+    winston = require('winston');
 
 module.exports = function() {
     return async.queue(function (options, cb) {
         fs.exists(options.output, function(exists) {
             if (exists && !options.overwrite) {
-                console.log('Skipping existing file', options.output);
+                winston.info('Skipping existing file', options.output);
                 cb();
             }
             else if (options.done) {
-                console.log('Nothing to do', options.output);
-                console.log('Complete', options.output);
+                winston.info('Nothing to do', options.output);
+                winston.info('Complete', options.output);
                 cb();
             }
             else if (options.copy) {
@@ -19,37 +20,37 @@ module.exports = function() {
                         if (err) {
                             return cb(err);
                         }
-                        console.log('Moved', options.output);
-                        console.log('Complete', options.output);
+                        winston.info('Moved', options.output);
+                        winston.info('Complete', options.output);
                         cb();
                     });
                 }
                 else {
-                    console.log('Copying', options.output);
+                    winston.info('Copying', options.output);
                     fs.copy(options.input, options.output, function(err) {
                         if (err) {
                             return cb(err);
                         }
-                        console.log('Copied', options.output);
-                        console.log('Complete', options.output);
+                        winston.info('Copied', options.output);
+                        winston.info('Complete', options.output);
                         cb();
                     });
                 }
             }
             else {
-                console.log('Starting', options.output);
+                winston.info('Starting', options.output);
                 options.ff
                     .on('start', function (commandLine) {
-                        console.log('Spawned ffmpeg with command: ' + commandLine);
+                        winston.info('Spawned ffmpeg with command: ' + commandLine);
                     })
                     .on('codecData', function (data) {
-                        console.log('Input is ' + data.audio + ' audio with ' + data.video + ' video in ' + data.format + ' length ' + data.duration);
+                        winston.info('Input is ' + data.audio + ' audio with ' + data.video + ' video in ' + data.format + ' length ' + data.duration);
                     })
                     .on('progress', function (progress) {
-                        console.log('Progress', progress.percent.toFixed(2) + '%', options.output);
+                        winston.info('Progress', progress.percent.toFixed(2) + '%', options.output);
                     })
                     .on('end', function () {
-                        console.log('Complete', options.output);
+                        winston.info('Complete', options.output);
                         if (options.delete) {
                             fs.unlink(options.input, cb);
                         }
@@ -58,7 +59,7 @@ module.exports = function() {
                         }
                     })
                     .on('error', function (err) {
-                        console.log('Error', options.output, err);
+                        winston.error('Error', options.output, err);
                         cb(err);
                     })
                     .run();

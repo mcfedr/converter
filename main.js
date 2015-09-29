@@ -1,7 +1,12 @@
 #!/usr/local/bin/node
 var config,
     path = require('path'),
-    os = require('os');
+    os = require('os'),
+    winston = require('winston');
+
+winston.remove(winston.transports.Console);
+winston.add(winston.transports.Console, {timestamp: true});
+
 try {
     config = require(path.join(os.homedir(), '.converter.json'));
 
@@ -9,7 +14,7 @@ try {
         process.env.FFMPEG_PATH = config.ffmpeg;
     }
 } catch(e) {
-    console.log('No config file found');
+    winston.info('No config file found');
 }
 
 var commander = require('commander'),
@@ -34,7 +39,7 @@ var options = commander
     .opts();
 
 if (!(options.input || options.inputDir || process.env.TR_TORRENT_DIR)) {
-    console.log('You must specify input');
+    winston.info('You must specify input');
     process.exit();
 }
 
