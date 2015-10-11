@@ -1,4 +1,4 @@
-#!/usr/local/bin/node
+#!/usr/bin/env node
 var config,
     path = require('path'),
     os = require('os'),
