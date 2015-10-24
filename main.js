@@ -45,7 +45,7 @@ if (!(options.input || options.inputDir || process.env.TR_TORRENT_DIR)) {
 
 server(handler, options.port).then(function(send) {
     if (options.input) {
-        send(options);
+        handleFile(options.input);
     }
 
     delete options.output;
@@ -60,15 +60,17 @@ server(handler, options.port).then(function(send) {
     }
 
     function handleDir(dir) {
-        fswalk(dir, function (file) {
-            if (!file.match(/sample/) && mime.lookup(file).match(/video\//)) {
-                options.input = file;
-                send(options);
-            }
-            else if (file.match(/\.srt/)) {
-                options.input = file;
-                subtitles(options);
-            }
-        });
+        fswalk(dir, handleFile);
+    }
+
+    function handleFile(file) {
+        if (!file.match(/sample/) && mime.lookup(file).match(/video\//)) {
+            options.input = file;
+            send(options);
+        }
+        else if (file.match(/\.srt/)) {
+            options.input = file;
+            subtitles(options);
+        }
     }
 });
