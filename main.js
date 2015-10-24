@@ -25,6 +25,7 @@ var commander = require('commander'),
     subtitles = require('./subtitles');
 
 var options = commander
+    .version(process.env.npm_package_version || require('./package.json').version)
     .description('Convert videos using ffmpeg to either mp4 or webm (whichever your ffmpeg supports) ' +
         'that can be played with chromecast.\n  This script can be a tranmission script, so it will process files ' +
         'in TR_TORRENT_DIR')
