@@ -1,6 +1,6 @@
 {
   "name": "cast-converter",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "A small program for converting videos for chromecast",
   "bin": "./main.js",
   "dependencies": {
